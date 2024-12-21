@@ -66,14 +66,23 @@ def calculate_harmony():
 # Main GUI window
 root = tk.Tk()
 root.title("Harmony Finder")
+root.geometry("500x300")
+
+# Apply dark mode theme
+dark_bg = "#2e2e2e"  # Dark background
+dark_fg = "#ffffff"  # Light foreground
+button_bg = "#3e3e3e"  # Button background
+button_fg = "#ffffff"  # Button foreground
+
+root.configure(bg=dark_bg)  # Set the app's background color
 
 # Input fields
-note_label = tk.Label(root, text="Enter Note:")
+note_label = tk.Label(root, text="Enter Note:", bg=dark_bg, fg=dark_fg)
 note_label.grid(row=0, column=0, padx=10, pady=10)
-note_entry = tk.Entry(root)
+note_entry = tk.Entry(root, bg=dark_bg, fg=dark_fg, insertbackground=dark_fg)
 note_entry.grid(row=0, column=1, padx=10, pady=10)
 
-scale_label = tk.Label(root, text="Select Scale:")
+scale_label = tk.Label(root, text="Select Scale:", bg=dark_bg, fg=dark_fg)
 scale_label.grid(row=1, column=0, padx=10, pady=10)
 scale_combobox = ttk.Combobox(root, values=list({
     "C_major": [],
@@ -100,20 +109,20 @@ scale_combobox = ttk.Combobox(root, values=list({
     "C_minor": [],
     "G_minor": [],
     "D_minor": [],
-}.keys()))
+}.keys()), state="readonly")
 scale_combobox.grid(row=1, column=1, padx=10, pady=10)
 
-interval_label = tk.Label(root, text="Enter Interval:")
+interval_label = tk.Label(root, text="Enter Interval:", bg=dark_bg, fg=dark_fg)
 interval_label.grid(row=2, column=0, padx=10, pady=10)
-interval_entry = tk.Entry(root)
+interval_entry = tk.Entry(root, bg=dark_bg, fg=dark_fg, insertbackground=dark_fg)
 interval_entry.grid(row=2, column=1, padx=10, pady=10)
 
 # Calculate button
-calculate_button = tk.Button(root, text="Calculate Harmony", command=calculate_harmony)
+calculate_button = tk.Button(root, text="Calculate Harmony", command=calculate_harmony, bg=button_bg, fg=button_fg)
 calculate_button.grid(row=3, column=0, columnspan=2, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="Harmony Note: ")
+result_label = tk.Label(root, text="Harmony Note: ", bg=dark_bg, fg=dark_fg)
 result_label.grid(row=4, column=0, columnspan=2, pady=10)
 
 root.mainloop()
