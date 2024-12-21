@@ -42,11 +42,16 @@ The **Harmony Finder** is a Python application with a graphical interface that c
 ---
 
 ## License
-This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it.
+Feel free to use, modify, and share imgthf under the MIT License.
 
 ---
 
-## Author
-Created by [Your Name/Username]. Contributions and feedback are welcome!
+## Contribution
+Feel free to contribute or do whatever you want with it!
+
+---
+
+### Author
+Built with ❤️ by [Pickle](https://github.com/HighStimRequired) and powered by Python.
 
 
