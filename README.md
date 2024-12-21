@@ -16,21 +16,23 @@ The **Harmony Finder** is a Python application with a graphical interface that c
 
 ## Requirements
 - **Python 3.x**
+- **Pillow**
 
 ---
 
 ## How to Use
 1. Clone or download the repository.
-2. Run the script:
+2. Run the "setup.bat" script to install python and pillow
+3. Run the "run.bat" script OR Run the script:
    ```bash
    python harmony.py
    ```
-3. In the GUI:
+5. In the GUI:
    - Enter a musical note (e.g., `C`, `G#`, `Bb`).
    - Select a scale from the dropdown menu.
    - Enter an interval (e.g., 1 for unison, 3 for a third, etc.).
    - Click "Calculate Harmony" to view the harmony note.
-4. The resulting harmony note will appear below the input fields.
+6. The resulting harmony note will appear below the input fields.
 
 ---
 
