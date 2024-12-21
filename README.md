@@ -1,4 +1,4 @@
-## Compile with pyinstaller
+## Compile with pyinstaller<br/>
 
 Open a command prompt and run:<br/>
 
