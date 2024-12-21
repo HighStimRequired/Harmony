@@ -7,7 +7,7 @@ pip install pyinstaller
 ```
 
 ```
-pyinstaller --onefile --windowed harmony.py
+pyinstaller --onefile --windowed --icon=icon.ico harmony.py
 ```
 
 Output will be in the 'dist' folder
