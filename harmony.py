@@ -46,27 +46,50 @@ def find_harmony(note, scale, interval):
     # Return the harmony note
     return scale_notes[harmony_index]
 
+# Function to process tab data
+def process_tab_data(tab_data, scale, interval):
+    processed_data = []
+    for note in tab_data.split():
+        harmony_note = find_harmony(note, scale, interval)
+        if "Error" in harmony_note:
+            processed_data.append(f"{note} (Error)")
+        else:
+            processed_data.append(harmony_note)
+    return processed_data
+
 # GUI Application
 def calculate_harmony():
-    note = note_entry.get()
-    scale = scale_combobox.get()
-    try:
-        interval = int(interval_entry.get()) - 1  # Subtract 1 to match 0-based indexing
-    except ValueError:
-        messagebox.showerror("Invalid Input", "Please enter a valid interval.")
-        return
+    if tab_mode.get():
+        tab_data = tab_text.get("1.0", tk.END).strip()
+        scale = scale_combobox.get()
+        try:
+            interval = int(interval_entry.get()) - 1  # Subtract 1 to match 0-based indexing
+        except ValueError:
+            messagebox.showerror("Invalid Input", "Please enter a valid interval.")
+            return
 
-    harmony_note = find_harmony(note, scale, interval)
-
-    if "Error" in harmony_note:
-        messagebox.showerror("Error", harmony_note)
+        harmony_results = process_tab_data(tab_data, scale, interval)
+        result_label.config(text="Harmony Notes:\n" + " ".join(harmony_results))
     else:
-        result_label.config(text=f"Harmony Note: {harmony_note}")
+        note = note_entry.get()
+        scale = scale_combobox.get()
+        try:
+            interval = int(interval_entry.get()) - 1  # Subtract 1 to match 0-based indexing
+        except ValueError:
+            messagebox.showerror("Invalid Input", "Please enter a valid interval.")
+            return
+
+        harmony_note = find_harmony(note, scale, interval)
+
+        if "Error" in harmony_note:
+            messagebox.showerror("Error", harmony_note)
+        else:
+            result_label.config(text=f"Harmony Note: {harmony_note}")
 
 # Main GUI window
 root = tk.Tk()
 root.title("Harmony Finder")
-root.geometry("500x300")
+root.geometry("600x400")
 
 # Apply dark mode theme
 dark_bg = "#2e2e2e"  # Dark background
@@ -76,14 +99,19 @@ button_fg = "#ffffff"  # Button foreground
 
 root.configure(bg=dark_bg)  # Set the app's background color
 
+# Tab mode toggle
+tab_mode = tk.BooleanVar()
+tab_mode_checkbox = tk.Checkbutton(root, text="Tab Mode", variable=tab_mode, bg=dark_bg, fg=dark_fg, selectcolor=dark_bg)
+tab_mode_checkbox.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+
 # Input fields
 note_label = tk.Label(root, text="Enter Note:", bg=dark_bg, fg=dark_fg)
-note_label.grid(row=0, column=0, padx=10, pady=10)
+note_label.grid(row=1, column=0, padx=10, pady=10)
 note_entry = tk.Entry(root, bg=dark_bg, fg=dark_fg, insertbackground=dark_fg)
-note_entry.grid(row=0, column=1, padx=10, pady=10)
+note_entry.grid(row=1, column=1, padx=10, pady=10)
 
 scale_label = tk.Label(root, text="Select Scale:", bg=dark_bg, fg=dark_fg)
-scale_label.grid(row=1, column=0, padx=10, pady=10)
+scale_label.grid(row=2, column=0, padx=10, pady=10)
 scale_combobox = ttk.Combobox(root, values=list({
     "C_major": [],
     "G_major": [],
@@ -110,19 +138,25 @@ scale_combobox = ttk.Combobox(root, values=list({
     "G_minor": [],
     "D_minor": [],
 }.keys()), state="readonly")
-scale_combobox.grid(row=1, column=1, padx=10, pady=10)
+scale_combobox.grid(row=2, column=1, padx=10, pady=10)
 
 interval_label = tk.Label(root, text="Enter Interval:", bg=dark_bg, fg=dark_fg)
-interval_label.grid(row=2, column=0, padx=10, pady=10)
+interval_label.grid(row=3, column=0, padx=10, pady=10)
 interval_entry = tk.Entry(root, bg=dark_bg, fg=dark_fg, insertbackground=dark_fg)
-interval_entry.grid(row=2, column=1, padx=10, pady=10)
+interval_entry.grid(row=3, column=1, padx=10, pady=10)
+
+# Tab input field
+tab_label = tk.Label(root, text="Paste Tab Data:", bg=dark_bg, fg=dark_fg)
+tab_label.grid(row=4, column=0, padx=10, pady=10)
+tab_text = tk.Text(root, bg=dark_bg, fg=dark_fg, insertbackground=dark_fg, height=5, width=40)
+tab_text.grid(row=4, column=1, padx=10, pady=10)
 
 # Calculate button
 calculate_button = tk.Button(root, text="Calculate Harmony", command=calculate_harmony, bg=button_bg, fg=button_fg)
-calculate_button.grid(row=3, column=0, columnspan=2, pady=10)
+calculate_button.grid(row=5, column=0, columnspan=2, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="Harmony Note: ", bg=dark_bg, fg=dark_fg)
-result_label.grid(row=4, column=0, columnspan=2, pady=10)
+result_label = tk.Label(root, text="Harmony Notes: ", bg=dark_bg, fg=dark_fg)
+result_label.grid(row=6, column=0, columnspan=2, pady=10)
 
 root.mainloop()
